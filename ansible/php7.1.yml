@@ -1,0 +1,6 @@
+---
+# file: ansible/php7.1.yml
+
+- hosts: web
+  roles:
+    - php7.1

@@ -1,0 +1,9 @@
+---
+# file: ansible/roles/php7.1/handlers/main.yml
+
+- name: restart php7.1-fpm
+  service:
+    name: php7.1-fpm
+    state: restarted
+  become: true
+  when: php_packages is defined and "fpm" in php_packages

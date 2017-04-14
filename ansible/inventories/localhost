@@ -1,0 +1,11 @@
+; file: ansible/inventories/local
+; Local development setup
+
+; server
+localhost ansible_host=192.168.33.10 ansible_user=vagrant ansible_password=vagrant
+
+[web]
+localhost
+
+[local:children]
+web

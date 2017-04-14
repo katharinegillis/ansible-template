@@ -1,0 +1,19 @@
+---
+# file: ansible/host_vars/local.yml
+
+ip: "192.168.33.10"
+domain: "my.example.com"
+domain_aliases:
+  - "my2.example.com"
+  - "my3.example.com"
+shared_folders:
+  - src: "server/"
+    dest: "/home/vagrant/gitrepo/server"
+    options:
+      :create: true
+      :nfs: true
+  - src: "client/dist/"
+    dest: "/home/vagrant/gitrepo/client/dist"
+    options:
+      :create: true
+      :nfs: true

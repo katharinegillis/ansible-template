@@ -1,0 +1,1 @@
+This is a set of ansible roles for use in ansible projects. Currently they are compatible with Ubuntu 16.04.

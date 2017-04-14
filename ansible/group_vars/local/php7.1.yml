@@ -1,0 +1,6 @@
+---
+# file: ansible/group_vars/local/php7.1.yml
+
+php_memory_limit: "512M"
+php_packages:
+  - fpm

@@ -1,0 +1,44 @@
+---
+# file: ansible/roles/php7.1/tasks/php7.1.yml
+
+- name: add the php repository
+  apt_repository:
+    repo: "ppa:ondrej/php"
+  register: php_repo
+  become: true
+
+- name: update apt-get
+  apt:
+    update_cache: yes
+  become: true
+  when: php_repo.changed
+
+- name: install php
+  apt:
+    name: "{{ item }}"
+  with_items:
+    - php7.1
+    - php7.1-common
+  become: true
+
+- name: install additional php packages
+  apt:
+    name: "php7.1-{{ item }}"
+  with_items: "{{ php_packages }}"
+  become: true
+  when: php_packages is defined
+
+- name: start php7.1-fpm service on boot
+  service:
+    name: php7.1-fpm
+    enabled: true
+  when: php_packages is defined and "fpm" in php_packages
+
+- name: copy php-fpm configuration
+  template:
+    src: php.ini.j2
+    dest: /etc/php/7.1/fpm/php.ini
+  become: true
+  notify:
+    - restart php7.1-fpm
+  when: php_packages is defined and "fpm" in php_packages

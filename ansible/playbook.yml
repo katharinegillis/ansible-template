@@ -1,0 +1,7 @@
+---
+# file: ansible/playbook.yml
+
+# Provision
+- include: php7.1.yml
+
+# Deploy

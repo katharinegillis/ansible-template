@@ -1,0 +1,13 @@
+---
+# file: ansible/roles/php7.1/tasks/main.yml
+
+- include: check_vars.yml
+  tags:
+    - php7.1
+    - check
+    - provision
+
+- include: php7.1.yml
+  tags:
+    - php7.1
+    - provision
