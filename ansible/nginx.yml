@@ -1,0 +1,6 @@
+---
+# file: ansible/nginx.yml
+
+- hosts: web
+  roles:
+    - nginx

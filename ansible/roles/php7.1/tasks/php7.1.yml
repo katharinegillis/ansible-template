@@ -9,7 +9,7 @@
 
 - name: update apt-get
   apt:
-    update_cache: yes
+    update_cache: true
   become: true
   when: php_repo.changed
 

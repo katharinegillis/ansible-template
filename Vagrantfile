@@ -5,7 +5,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 # Get the environment configuration from Ansible.
 require "yaml"
-env = YAML.load_file(File.join(File.dirname(__FILE__), "ansible/host_vars/local.yml"))
+env = YAML.load_file(File.join(File.dirname(__FILE__), "ansible/host_vars/localhost.yml"))
 
 # Check for required plugins.
 if env.has_key?("domain_aliases") && !Vagrant.has_plugin?("vagrant-hostsupdater")

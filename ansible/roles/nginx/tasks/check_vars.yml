@@ -1,0 +1,12 @@
+---
+# file: ansible/roles/nginx/tasks/check_vars.yml
+
+- name: check required variables are set
+  fail:
+    msg: "{{ item }} is not defined"
+  when: item not in hostvars[inventory_hostname]
+  with_items:
+    - nginx_worker_processes
+    - nginx_multi_accept
+    - nginx_sendfile
+    - nginx_keepalive_requests

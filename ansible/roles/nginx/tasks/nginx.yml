@@ -1,0 +1,41 @@
+---
+# file: ansible/roles/nginx/tasks/nginx.yml
+
+- name: stop apache
+  service:
+    name: apache2
+    state: stopped
+    enabled: no
+  become: true
+
+- name: create nginx user
+  user:
+    name: "nginx"
+    system: true
+    state: present
+  become: true
+
+- name: add the nginx repository
+  apt_repository:
+    repo: "ppa:nginx/stable"
+  register: nginx_repo
+  become: true
+
+- name: update apt-get
+  apt:
+    update_cache: true
+  become: true
+  when: nginx_repo.changed
+
+- name: install nginx
+  apt:
+    name: nginx
+  become: true
+
+- name: copy nginx config
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+  become: true
+  notify:
+    - restart nginx

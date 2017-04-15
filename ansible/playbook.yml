@@ -3,5 +3,6 @@
 
 # Provision
 - include: php7.1.yml
+- include: nginx.yml
 
 # Deploy

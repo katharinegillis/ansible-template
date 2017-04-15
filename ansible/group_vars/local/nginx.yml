@@ -1,0 +1,7 @@
+---
+# file: ansible/group_vars/local/nginx.yml
+
+nginx_worker_processes: "1"
+nginx_multi_accept: "off"
+nginx_sendfile: "off"
+nginx_keepalive_requests: 2048
