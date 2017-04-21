@@ -12,6 +12,7 @@
   with_items:
     - mysql-server
     - python-mysqldb
+  register: mysql_install
   become: true
 
 - name: delete anonymous mysql user for ansible_fqdn
@@ -20,12 +21,14 @@
     host: "{{ ansible_fqdn }}"
     state: "absent"
   become: true
+  when: mysql_install.changed
 
 - name: delete anonymous mysql server user for localhost
   mysql_user:
     user: ""
     state: "absent"
   become: true
+  when: mysql_install.changed
 
 - name: secure root user for IPV6 localhost (::1)
   mysql_user:
@@ -33,6 +36,7 @@
     password: "{{ mysql_root_password }}"
     host: "::1"
   become: true
+  when: mysql_install.changed
 
 - name: secure root user for IPV4 localhost (127.0.0.1)
   mysql_user:
@@ -40,6 +44,7 @@
     password: "{{ mysql_root_password }}"
     host: "127.0.0.1"
   become: true
+  when: mysql_install.changed
 
 - name: secure root user for server_hostname domain
   mysql_user:
@@ -47,12 +52,14 @@
     password: "{{ mysql_root_password }}"
     host: "{{ ansible_fqdn }}"
   become: true
+  when: mysql_install.changed
 
 - name: remove test database
   mysql_db:
     db: test
     state: absent
   become: true
+  when: mysql_install.changed
 
 - name: secure root user for localhost domain (localhost)
   mysql_user:
@@ -60,3 +67,4 @@
     password: "{{ mysql_root_password }}"
     host: "localhost"
   become: true
+  when: mysql_install.changed
