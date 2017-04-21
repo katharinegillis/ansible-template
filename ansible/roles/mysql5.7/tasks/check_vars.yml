@@ -1,0 +1,9 @@
+---
+# file: ansible/roles/mysql5.7/tasks/check_vars.yml
+
+- name: check required variables are set
+  fail:
+    msg: "{{ item }} is not defined"
+  when: item not in hostvars[inventory_hostname]
+  with_items:
+    - mysql_root_password

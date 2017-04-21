@@ -1,0 +1,62 @@
+---
+# file: ansible/roles/mysql5.7/tasks/mysql5.7.yml
+
+- name: update apt
+  apt:
+    update_cache: true
+  become: true
+
+- name: install mysql5.7 server
+  apt:
+    name: "{{ item }}"
+  with_items:
+    - mysql-server
+    - python-mysqldb
+  become: true
+
+- name: delete anonymous mysql user for ansible_fqdn
+  mysql_user:
+    user: ""
+    host: "{{ ansible_fqdn }}"
+    state: "absent"
+  become: true
+
+- name: delete anonymous mysql server user for localhost
+  mysql_user:
+    user: ""
+    state: "absent"
+  become: true
+
+- name: secure root user for IPV6 localhost (::1)
+  mysql_user:
+    user: "root"
+    password: "{{ mysql_root_password }}"
+    host: "::1"
+  become: true
+
+- name: secure root user for IPV4 localhost (127.0.0.1)
+  mysql_user:
+    user: "root"
+    password: "{{ mysql_root_password }}"
+    host: "127.0.0.1"
+  become: true
+
+- name: secure root user for server_hostname domain
+  mysql_user:
+    user: "root"
+    password: "{{ mysql_root_password }}"
+    host: "{{ ansible_fqdn }}"
+  become: true
+
+- name: remove test database
+  mysql_db:
+    db: test
+    state: absent
+  become: true
+
+- name: secure root user for localhost domain (localhost)
+  mysql_user:
+    user: "root"
+    password: "{{ mysql_root_password }}"
+    host: "localhost"
+  become: true

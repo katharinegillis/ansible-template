@@ -1,5 +1,5 @@
 ---
-# file: ansible/roles/nginx/tasks/main.yml
+# file: ansible/roles/mysql5.7/tasks/main.yml
 
 - include: check_vars.yml
   tags:
@@ -7,7 +7,7 @@
     - nginx
     - provision
 
-- include: nginx.yml
+- include: mysql5.7.yml
   tags:
-    - nginx
+    - mysql5.7
     - provision

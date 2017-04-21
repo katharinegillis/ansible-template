@@ -7,5 +7,9 @@ localhost ansible_host=192.168.33.10 ansible_user=vagrant ansible_password=vagra
 [web]
 localhost
 
+[db]
+localhost
+
 [local:children]
 web
+db

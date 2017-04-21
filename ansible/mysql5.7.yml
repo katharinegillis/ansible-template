@@ -1,0 +1,6 @@
+---
+# file: ansible/mysql5.7.yml
+
+- hosts: db
+  roles:
+    - mysql5.7
